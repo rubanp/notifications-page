@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Mark Webber",
+    "photo": "mark-webber.jpg"
+  },
+  {
+    "name": "Angela Gray",
+    "photo": "angela-gray.jpg"
+  },
+  {
+    "name": "Jacob Thompson",
+    "photo": "jacob-thompson.jpg"
+  },
+  {
+    "name": "Rizky Hasanuddin",
+    "photo": "rizky-hasanuddin.jpg"
+  },
+  {
+    "name": "Kimberly Smith",
+    "photo": "kimberly-smith.jpg"
+  },
+  {
+    "name": "Nathan Peterson",
+    "photo": "nathan-peterson.jpg"
+  },
+  {
+    "name": "Anna Kim",
+    "photo": "anna-kim.jpeg"
+  }
+]
