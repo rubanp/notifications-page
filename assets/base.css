@@ -9,7 +9,7 @@
   --dark-grayish-blue: hsl(219, 12%, 42%);
   --very-dark-blue: hsl(224, 21%, 14%);
   --font-family: 'Plus Jakarta Sans', sans-serif;
-  --standard-weight: 500;
-  --bold-weight: 800;
+  --standard: 500;
+  --bold: 800;
 }
 
