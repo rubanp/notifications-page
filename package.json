@@ -6,22 +6,16 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "story:dev": "histoire dev",
+    "story:build": "histoire build",
+    "story:preview": "histoire preview"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.2",
-    "@storybook/addon-actions": "^6.5.13",
-    "@storybook/addon-essentials": "^6.5.13",
-    "@storybook/addon-interactions": "^6.5.13",
-    "@storybook/addon-links": "^6.5.13",
-    "@storybook/builder-webpack4": "^6.5.13",
-    "@storybook/manager-webpack4": "^6.5.13",
-    "@storybook/testing-library": "^0.0.13",
-    "@storybook/vue3": "^6.5.13",
-    "babel-loader": "^8.3.0",
+    "@histoire/plugin-nuxt": "^0.11.6",
+    "@histoire/plugin-vue": "^0.11.6",
+    "histoire": "^0.11.6",
     "nuxt": "3.0.0-rc.13",
+    "postcss": "^8.4.18",
     "vue-loader": "^16.8.3"
-  },
-  "dependencies": {}
+  }
 }
