@@ -1,8 +1,0 @@
-@import './base.css';
-@import './reset.css';
-
-html {
-  font-family: var(--font-family);
-  font-weight: var(--standard);
-}
-
