@@ -67,18 +67,6 @@ const notifications = ref([
   },
   {
     id: 5,
-    person: "Kimberly Smith",
-    profilePhoto: "/jacob-thompson.jpg",
-    timestamp: "1 week ago",
-    picture: "playing-chess.jpg",
-    message: "commented on your picture",
-    object: {
-      picture: "/playing-chess.jpg"
-    },
-    read: true,
-  },
-  {
-    id: 6,
     person: "Nathan Peterson",
     profilePhoto: "/nathan-peterson.jpg",
     timestamp: "2 weeks ago",
@@ -89,7 +77,7 @@ const notifications = ref([
     read: true,
   },
   {
-    id: 7,
+    id: 6,
     person: "Anna Kim",
     profilePhoto: "/anna-kim.jpg",
     timestamp: "2 weeks ago",
@@ -107,8 +95,15 @@ const notifications = ref([
   width: 100%;
   padding: 2em;
   display: flex;
+  gap: 0.5em;
   flex-direction: column;
   align-items: flex-start;
+}
+
+@media only screen and (max-width: 550px) {
+  #container {
+    padding: 2em 0.5em 2em 0.5em;
+  }
 }
 
 header {

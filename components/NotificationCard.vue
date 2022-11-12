@@ -20,9 +20,9 @@
       <p id="objectMessage" :class="{hide: !isMessage}">{{ props.object.message }}</p>
     </div>
 
-    <a href="javascript:" id="pictureLink">
-      <img id="picture" :src="props.object.picture" alt="" :class="{hide: !isComment}">
-    </a>
+    <div class="popup-container">
+      <MarkPopup class="popup"/>
+    </div>
 
   </div>
 </template>
@@ -114,17 +114,6 @@
     height: 8px;
     border-radius: 50%;
     background-color: var(--red);
-  }
-
-  #picture {
-    height: 45px;
-    width: 45px;
-    border-radius: 7px;
-  }
-
-  #pictureLink {
-    margin-left: auto;
-    margin-top: 1.25em;
   }
 
   #objectMessage {
