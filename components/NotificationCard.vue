@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div class="notification-card" :class="{blueBackground: !read}">
 
     <img :src="props.image" :alt="imgAlt" id="avatarImage">
 
@@ -13,8 +13,8 @@
           <span id="object" :class="{group: isGroup, hide: emptyObject}"><a 
               href="javascript:"> &nbsp;&nbsp;{{ props.object.post || 
               props.object.group }}</a></span>
-        </span>
         <span id="read" :class="{hide: read, block: !read}"></span>
+        </span>
       </p>
       <p id="timestamp">{{ props.timestamp }}</p>
       <p id="objectMessage" :class="{hide: !isMessage}">{{ props.object.message }}</p>
@@ -35,23 +35,46 @@
   })
   const emptyObject = ref(Object.keys(props.object).length === 0)
   const isGroup = ref(Object.keys(props.object).includes('group'));
-  const isComment = ref(Object.keys(props.object).includes('picture'));
   const isMessage = ref(Object.keys(props.object).includes('message'));
   const read = props.read;
 </script>
 
 
 <style scoped>
-  #main {
+
+  .popup {
+    margin-top: 1.5em;
+    display: none;
+  }
+
+  .popup-container {
+    min-width: 62px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-left: auto;
+  }
+
+  .notification-card:hover .popup {
+    display: block;
+  }
+
+  .notification-card {
     display: flex;
     width: 100%;
     min-height: 80px;
-    padding: 1em 1em 1em 0;
     font-family: var(--primary-font);
+    position: relative;
+    border-radius: 10px;
+    padding: 0 1.25em 0 1.25em
+  }
+
+  .blueBackground {
+    background-color: var(--light-grayish-blue-1);
   }
 
   #avatarImage {
-    margin: 1.25em;
+    margin: 1.25em 1.25em 1.25em 0;
     width: 45px;
     height: 45px;
     border-radius: 50%;
