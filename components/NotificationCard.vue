@@ -5,7 +5,7 @@
 
     <div id="content">
       <p id="text">
-        <span id="person"><a href="javascript:">
+        <span id="person"><a href="javascript:" id="personLink">
             {{ props.person }}&nbsp;&nbsp;
         </a></span>
         <span id="message">
@@ -14,7 +14,7 @@
               href="javascript:"> &nbsp;&nbsp;{{ props.object.post || 
               props.object.group }}</a></span>
         </span>
-        <div id="read" :class="{hide: !read, block: read}"></div>
+        <span id="read" :class="{hide: read, block: !read}"></span>
       </p>
       <p id="timestamp">{{ props.timestamp }}</p>
       <p id="objectMessage" :class="{hide: !isMessage}">{{ props.object.message }}</p>
@@ -37,7 +37,7 @@
   const isGroup = ref(Object.keys(props.object).includes('group'));
   const isComment = ref(Object.keys(props.object).includes('picture'));
   const isMessage = ref(Object.keys(props.object).includes('message'));
-  const read = ref(props.read === 'true');
+  const read = props.read;
 </script>
 
 
@@ -46,7 +46,7 @@
     display: flex;
     width: 100%;
     min-height: 80px;
-    padding: 1em;
+    padding: 1em 1em 1em 0;
     font-family: var(--primary-font);
   }
 
