@@ -98,6 +98,8 @@ const notifications = ref([
   gap: 0.5em;
   flex-direction: column;
   align-items: flex-start;
+  border: solid 1px var(--light-grayish-blue-2);
+  border-radius: 10px;
 }
 
 @media only screen and (max-width: 550px) {

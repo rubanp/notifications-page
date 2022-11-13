@@ -1,3 +1,22 @@
+<script setup>
+
+  const popupHidden = ref(true)
+  const props = defineProps(['person', 'timestamp', 'message', 'object', 
+                            'image', 'read'])
+  const imgAlt = computed(() => {
+    return `Profile photo of ${props.person}`
+  })
+  const emptyObject = ref(Object.keys(props.object).length === 0)
+  const isGroup = ref(Object.keys(props.object).includes('group'));
+  const isMessage = ref(Object.keys(props.object).includes('message'));
+  const read = props.read;
+
+  function togglePopup() {
+    popupHidden.value = !popupHidden.value
+  }
+
+</script>
+
 <template>
   <div class="notification-card" :class="{blueBackground: !read}">
 
@@ -21,33 +40,29 @@
     </div>
 
     <div class="popup-container">
-      <MarkPopup class="popup"/>
+      <MarkPopup class="popup-activate" @click="togglePopup" :class="{block: !popupHidden}"/>
     </div>
 
+    <Popup class="popup" v-if="!popupHidden"/>
   </div>
 </template>
-
-<script setup>
-  const props = defineProps(['person', 'timestamp', 'message', 'object', 
-                            'image', 'read'])
-  const imgAlt = computed(() => {
-    return `Profile photo of ${props.person}`
-  })
-  const emptyObject = ref(Object.keys(props.object).length === 0)
-  const isGroup = ref(Object.keys(props.object).includes('group'));
-  const isMessage = ref(Object.keys(props.object).includes('message'));
-  const read = props.read;
-</script>
-
 
 <style scoped>
 
   .popup {
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    z-index: 999;
+  }
+
+  .popup-activate {
     margin-top: 1.5em;
     display: none;
   }
 
   .popup-container {
+    position: relative;
     min-width: 62px;
     display: flex;
     justify-content: flex-end;
@@ -55,7 +70,11 @@
     margin-left: auto;
   }
 
-  .notification-card:hover .popup {
+  .notification-card:hover .popup-activate {
+    display: block;
+  }
+
+  .block {
     display: block;
   }
 

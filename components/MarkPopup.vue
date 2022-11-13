@@ -1,14 +1,10 @@
 <template>
-  <div @click="openPopup">
+  <div>
     <img src="../assets/icons/dots.svg" alt="">
   </div>
 </template>
 
-<script setup>
-function openPopup() {
-  // do stuff
-}
-</script>
+<script setup></script>
 
 <style scoped>
 div {
