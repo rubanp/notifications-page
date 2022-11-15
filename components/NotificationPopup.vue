@@ -9,6 +9,7 @@
     <NotificationCard
       v-for="notification in notifications"
       :key="notification.id"
+      :no="notification.id"
       :person="notification.person"
       :image="notification.profilePhoto"
       :timestamp="notification.timestamp"
@@ -20,11 +21,12 @@
 </template>
 
 <script setup>
+
 const unread = ref(3)
 
 const notifications = ref([
   {
-    id: 1,
+    id: 0,
     person: "Mark Webber",
     profilePhoto: "/mark-webber.jpg",
     timestamp: "1m ago",
@@ -35,7 +37,7 @@ const notifications = ref([
     read: false,
   },
   {
-    id: 2,
+    id: 1,
     person: "Angela Gray",
     profilePhoto: "/angela-gray.jpg",
     timestamp: "5m ago",
@@ -44,7 +46,7 @@ const notifications = ref([
     read: false,
   },
   {
-    id: 3,
+    id: 2,
     person: "Jacob Thompson",
     profilePhoto: "/jacob-thompson.jpg",
     timestamp: "5 days ago",
@@ -55,7 +57,7 @@ const notifications = ref([
     read: false,
   },
   {
-    id: 4,
+    id: 3,
     person: "Rizky Hasanuddin",
     profilePhoto: "/rizky-hasanuddin.jpg",
     timestamp: "1 week ago",
@@ -66,7 +68,7 @@ const notifications = ref([
     read: true,
   },
   {
-    id: 5,
+    id: 4,
     person: "Nathan Peterson",
     profilePhoto: "/nathan-peterson.jpg",
     timestamp: "2 weeks ago",
@@ -77,7 +79,7 @@ const notifications = ref([
     read: true,
   },
   {
-    id: 6,
+    id: 5,
     person: "Anna Kim",
     profilePhoto: "/anna-kim.jpg",
     timestamp: "2 weeks ago",
@@ -88,6 +90,17 @@ const notifications = ref([
     read: true,
   }
 ])
+
+  /* notifications.value.forEach((notification) => { */
+  /*   notificationsStore.notifications.push({ */
+  /*     id: notification.id, */
+  /*     read: notification.read, */
+  /*     popupVisible: false */
+  /*   }) */
+  /* }) */
+
+  /* console.log(notificationsStore.notifications); */
+
 </script>
 
 <style scoped>
