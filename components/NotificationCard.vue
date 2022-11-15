@@ -1,8 +1,8 @@
 <script setup>
 
-  const popupHidden = ref(true)
   const props = defineProps(['person', 'timestamp', 'message', 'object', 
-                            'image', 'read'])
+                            'image', 'read', 'no']);
+  const popupHidden = ref(true)
   const imgAlt = computed(() => {
     return `Profile photo of ${props.person}`
   })
@@ -100,11 +100,11 @@
   }
 
   #content {
-    margin-right: 1em;
+    margin: 1em 1em 1em 0;
   }
 
   #text {
-    margin-top: 1.125em;
+    margin-top: 0.125em;
   }
 
   #person {
