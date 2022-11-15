@@ -1,24 +1,100 @@
 export const useNotificationStore = defineStore('notifications', () => {
+
   const notifications = ref([
     {
-      id: 0,
+      uuid: '1c3c4ff0-9ce7-4cd5-b110-018243020991',
+      person: "Mark Webber",
+      profilePhoto: "/mark-webber.jpg",
+      timestamp: "1m ago",
+      message: "reacted to your recent post",
+      object: {
+        post: "My first tournament today!"
+      },
       read: false,
-      popupVisible: false
+    },
+    {
+      uuid: '5fe320c7-89d5-4981-a5eb-7848f8451594',
+      person: "Angela Gray",
+      profilePhoto: "/angela-gray.jpg",
+      timestamp: "5m ago",
+      message: "followed you",
+      object: {},
+      read: false,
+    },
+    {
+      uuid: '96ee142c-45a9-4515-a8eb-fde6e08d5d42',
+      person: "Jacob Thompson",
+      profilePhoto: "/jacob-thompson.jpg",
+      timestamp: "5 days ago",
+      message: "has joined your club",
+      object: {
+        group: "Chess Club"
+      },
+      read: false,
+    },
+    {
+      uuid: '558f92b9-561d-4674-b3e9-5b7d9872a65a',
+      person: "Rizky Hasanuddin",
+      profilePhoto: "/rizky-hasanuddin.jpg",
+      timestamp: "1 week ago",
+      message: "sent you a private message",
+      object: {
+        message: "Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and I'm already having lots of fun and improving my game."
+      },
+      read: true,
+    },
+    {
+      uuid: '33270f7c-126c-47be-b612-879757d9671b',
+      person: "Nathan Peterson",
+      profilePhoto: "/nathan-peterson.jpg",
+      timestamp: "2 weeks ago",
+      message: "reacted to your recent post",
+      object: {
+        post: "5 end-game strategies to increase your win rate",
+      },
+      read: true,
+    },
+    {
+      uuid: '09d0b244-9009-475c-9f31-0e2714a849ee',
+      person: "Anna Kim",
+      profilePhoto: "/anna-kim.jpg",
+      timestamp: "2 weeks ago",
+      message: "left your group",
+      object: {
+        group: "Board Games Club"
+      },
+      read: true,
     }
-  ]);
+  ])
 
+  // Return all notifications
   const allNotifications = computed(() => {
     return notifications;
   })
 
+  // Unread notifications
+  const unread = computed(() => {
+    return notifications.value.reduce((total, current) => {
+      if(current.read) {
+        return total;
+      } return total + 1;
+    }, 0)
+  })
+
   // When marking as read && helper for mark all as read
-  function markAsRead(no) {
-    notifications[no].read = true;
+  function markAsRead(uuid) {
+    const notificationIndex = notifications.findIndex((notification) =>{
+      notification.uuid === uuid;
+    })
+    notifications[notificationIndex].read = true;
   }
 
   // When marking as unread on the popup
-  function markAsUnread(no) {
-    notifications[no].read = false;
+  function markAsUnread(uuid) {
+    const notificationIndex = notifications.findIndex((notification) =>{
+      notification.uuid === uuid;
+    })
+    notifications[notificationIndex].read = false;
   }
 
   // Helpers
@@ -59,10 +135,6 @@ export const useNotificationStore = defineStore('notifications', () => {
     notifications.push(notification);
   }
 
-  // Remove notification
-  function addNotification(notification) {
-    notifications.push(notification);
-  }
+  return { allNotifications, unread, markAsRead, markAsUnread, markAllAsRead, hideAllPopups, showOnePopup, addNotification }
 
-  return { notifications }
 }) 

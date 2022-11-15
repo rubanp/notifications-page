@@ -1,7 +1,10 @@
 <script setup>
 
-  const props = defineProps(['person', 'timestamp', 'message', 'object', 
-                            'image', 'read', 'no']);
+  import { useNotificationStore } from '~~/stores/notifications';
+
+  const notificationsStore = useNotificationStore();
+
+  const props = defineProps(['person', 'timestamp', 'message', 'object', 'image', 'read', 'uuid']);
   const popupHidden = ref(true)
   const imgAlt = computed(() => {
     return `Profile photo of ${props.person}`

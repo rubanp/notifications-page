@@ -8,8 +8,8 @@
     </header>
     <NotificationCard
       v-for="notification in notifications"
-      :key="notification.id"
-      :no="notification.id"
+      :key="notification.uuid"
+      :uuid="notification.uuid"
       :person="notification.person"
       :image="notification.profilePhoto"
       :timestamp="notification.timestamp"
@@ -22,84 +22,13 @@
 
 <script setup>
 
-const unread = ref(3)
+import { useNotificationStore } from '~~/stores/notifications';
 
-const notifications = ref([
-  {
-    id: 0,
-    person: "Mark Webber",
-    profilePhoto: "/mark-webber.jpg",
-    timestamp: "1m ago",
-    message: "reacted to your recent post",
-    object: {
-      post: "My first tournament today!"
-    },
-    read: false,
-  },
-  {
-    id: 1,
-    person: "Angela Gray",
-    profilePhoto: "/angela-gray.jpg",
-    timestamp: "5m ago",
-    message: "followed you",
-    object: {},
-    read: false,
-  },
-  {
-    id: 2,
-    person: "Jacob Thompson",
-    profilePhoto: "/jacob-thompson.jpg",
-    timestamp: "5 days ago",
-    message: "has joined your club",
-    object: {
-      group: "Chess Club"
-    },
-    read: false,
-  },
-  {
-    id: 3,
-    person: "Rizky Hasanuddin",
-    profilePhoto: "/rizky-hasanuddin.jpg",
-    timestamp: "1 week ago",
-    message: "sent you a private message",
-    object: {
-      message: "Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and I'm already having lots of fun and improving my game."
-    },
-    read: true,
-  },
-  {
-    id: 4,
-    person: "Nathan Peterson",
-    profilePhoto: "/nathan-peterson.jpg",
-    timestamp: "2 weeks ago",
-    message: "reacted to your recent post",
-    object: {
-      post: "5 end-game strategies to increase your win rate",
-    },
-    read: true,
-  },
-  {
-    id: 5,
-    person: "Anna Kim",
-    profilePhoto: "/anna-kim.jpg",
-    timestamp: "2 weeks ago",
-    message: "left your group",
-    object: {
-      group: "Board Games Club"
-    },
-    read: true,
-  }
-])
+const notificationsStore = useNotificationStore();
 
-  /* notifications.value.forEach((notification) => { */
-  /*   notificationsStore.notifications.push({ */
-  /*     id: notification.id, */
-  /*     read: notification.read, */
-  /*     popupVisible: false */
-  /*   }) */
-  /* }) */
+const notifications = notificationsStore.allNotifications;
 
-  /* console.log(notificationsStore.notifications); */
+const unread = notificationsStore.unread;
 
 </script>
 
