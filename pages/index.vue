@@ -8,6 +8,7 @@
 
 <style scoped>
 main {
+  height: 100vh;
   width: 50%;
   display: flex;
   justify-content: center;
