@@ -7,28 +7,28 @@
       </div>
     </header>
     <NotificationCard
-      v-for="notification in notifications"
+      v-for="notification in allNotifications.value"
       :key="notification.uuid"
       :uuid="notification.uuid"
       :person="notification.person"
       :image="notification.profilePhoto"
       :timestamp="notification.timestamp"
       :message="notification.message"
-      :object="notification.object" 
-      :read="notification.read">
+      :object="notification.object"
+      :read="notification.read"
+      :popupVisbile="notification.popupVisible">
     </NotificationCard>
   </div>
 </template>
 
 <script setup>
 
+import {storeToRefs} from 'pinia';
 import { useNotificationStore } from '~~/stores/notifications';
 
 const notificationsStore = useNotificationStore();
 
-const notifications = notificationsStore.allNotifications;
-
-const unread = notificationsStore.unread;
+const { unread, allNotifications } = storeToRefs(notificationsStore)
 
 </script>
 

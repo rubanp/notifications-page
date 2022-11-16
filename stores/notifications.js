@@ -1,3 +1,5 @@
+import anymatch from "anymatch";
+
 export const useNotificationStore = defineStore('notifications', () => {
 
   const notifications = ref([
@@ -11,6 +13,7 @@ export const useNotificationStore = defineStore('notifications', () => {
         post: "My first tournament today!"
       },
       read: false,
+      popupVisible: false,
     },
     {
       uuid: '5fe320c7-89d5-4981-a5eb-7848f8451594',
@@ -20,6 +23,7 @@ export const useNotificationStore = defineStore('notifications', () => {
       message: "followed you",
       object: {},
       read: false,
+      popupVisible: false,
     },
     {
       uuid: '96ee142c-45a9-4515-a8eb-fde6e08d5d42',
@@ -31,6 +35,7 @@ export const useNotificationStore = defineStore('notifications', () => {
         group: "Chess Club"
       },
       read: false,
+      popupVisible: false,
     },
     {
       uuid: '558f92b9-561d-4674-b3e9-5b7d9872a65a',
@@ -42,6 +47,7 @@ export const useNotificationStore = defineStore('notifications', () => {
         message: "Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and I'm already having lots of fun and improving my game."
       },
       read: true,
+      popupVisible: false,
     },
     {
       uuid: '33270f7c-126c-47be-b612-879757d9671b',
@@ -53,6 +59,7 @@ export const useNotificationStore = defineStore('notifications', () => {
         post: "5 end-game strategies to increase your win rate",
       },
       read: true,
+      popupVisible: false,
     },
     {
       uuid: '09d0b244-9009-475c-9f31-0e2714a849ee',
@@ -64,6 +71,7 @@ export const useNotificationStore = defineStore('notifications', () => {
         group: "Board Games Club"
       },
       read: true,
+      popupVisible: false,
     }
   ])
 
@@ -74,27 +82,37 @@ export const useNotificationStore = defineStore('notifications', () => {
 
   // Unread notifications
   const unread = computed(() => {
-    return notifications.value.reduce((total, current) => {
-      if(current.read) {
+    return notifications.value.map((notification) => {
+      return notification.read;
+    }).reduce((total, current) => {
+      if(current) {
         return total;
-      } return total + 1;
+      } return total + 1
     }, 0)
+
+    // return notifications.value.reduce((total, current) => {
+    //   if(current.read) {
+    //     return total;
+    //   } return total + 1;
+    // }, 0)
   })
 
   // When marking as read && helper for mark all as read
   function markAsRead(uuid) {
-    const notificationIndex = notifications.findIndex((notification) =>{
-      notification.uuid === uuid;
+    notifications.value = notifications.value.map((notification) => {
+      if (notification.uuid === uuid) {
+        notification.read = true;
+      } return notification;
     })
-    notifications[notificationIndex].read = true;
   }
 
   // When marking as unread on the popup
   function markAsUnread(uuid) {
-    const notificationIndex = notifications.findIndex((notification) =>{
-      notification.uuid === uuid;
+    notifications.value = notifications.value.map((notification) => {
+      if (notification.uuid === uuid) {
+        notification.read = false;
+      } return notification;
     })
-    notifications[notificationIndex].read = false;
   }
 
   // Helpers

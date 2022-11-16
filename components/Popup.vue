@@ -2,20 +2,27 @@
   <div class="popup-card">
     <img src="../assets/notification-popup.svg" alt="" class="popup-svg">
     <div class="popup-content">
-      <div class="action">
+      <a class="action" @click="$emit('readStatusChange', readStatus)">
         <img class="icon" src="../assets/icons/tick.svg" alt="">
-        <p>Mark as {{ status }}</p>
-      </div>
-      <div class="action">
+        <p>Mark as {{ readStatus }}</p>
+      </a>
+      <a class="action">
         <img class="icon" src="../assets/icons/remove.svg" alt="">
         <p>Remove</p>
-      </div>
+      </a>
     </div>
   </div>
 </template>
 
 <script setup>
-const status = 'read'
+const props = defineProps(['read']);
+
+const readStatus = computed(() => {
+  if (props.read) {
+    return 'unread';
+  } return 'read';
+})
+
 </script>
 
 <style scoped>
@@ -49,5 +56,10 @@ img {
 .action:hover {
   cursor: pointer;
   opacity: 0.6;
+}
+
+p {
+  font-size: 14px;
+  padding-top: 2px;
 }
 </style>

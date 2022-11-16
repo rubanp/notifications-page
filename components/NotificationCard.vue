@@ -4,24 +4,33 @@
 
   const notificationsStore = useNotificationStore();
 
-  const props = defineProps(['person', 'timestamp', 'message', 'object', 'image', 'read', 'uuid']);
+  const props = defineProps(['person', 'timestamp', 'message', 'object', 'image', 'read', 'uuid', 'popupVisible']);
+
   const popupHidden = ref(true)
+
   const imgAlt = computed(() => {
     return `Profile photo of ${props.person}`
   })
   const emptyObject = ref(Object.keys(props.object).length === 0)
   const isGroup = ref(Object.keys(props.object).includes('group'));
   const isMessage = ref(Object.keys(props.object).includes('message'));
-  const read = props.read;
 
   function togglePopup() {
     popupHidden.value = !popupHidden.value
   }
 
+  function changeReadStatus(newStatus) {
+    if (newStatus === 'unread') {
+      notificationsStore.markAsUnread(props.uuid);
+    } else {
+      notificationsStore.markAsRead(props.uuid);
+    }
+  }
+
 </script>
 
 <template>
-  <div class="notification-card" :class="{blueBackground: !read}">
+  <div class="notification-card" :class="{blueBackground: !props.read}">
 
     <img :src="props.image" :alt="imgAlt" id="avatarImage">
 
@@ -35,7 +44,7 @@
           <span id="object" :class="{group: isGroup, hide: emptyObject}"><a 
               href="javascript:"> &nbsp;&nbsp;{{ props.object.post || 
               props.object.group }}</a></span>
-        <span id="read" :class="{hide: read, block: !read}"></span>
+        <span id="read" :class="{hide: props.read, block: !props.read}"></span>
         </span>
       </p>
       <p id="timestamp">{{ props.timestamp }}</p>
@@ -46,7 +55,7 @@
       <MarkPopup class="popup-activate" @click="togglePopup" :class="{block: !popupHidden}"/>
     </div>
 
-    <Popup class="popup" v-if="!popupHidden"/>
+    <Popup class="popup" v-if="!popupHidden" :read="props.read" @read-status-change="changeReadStatus"/>
   </div>
 </template>
 
