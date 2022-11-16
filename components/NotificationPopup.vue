@@ -1,11 +1,11 @@
 <template>
   <div id="container">
-    <header @click="notificationsVisible = !notificationsVisible">
+    <header>
       <h1 id="notificationTitle">Notifications</h1>
       <div id="unreadNotifications">
         <p>{{ unread }}</p>
       </div>
-      <img src="../assets/icons/expand.svg" alt="" id="expand-icon">
+      <a href="javascript:" @click="notificationsStore.markAllAsRead" id="markAllRead">Mark all as read</a>
     </header>
     <TransitionGroup name="list">
       <NotificationCard
@@ -34,37 +34,12 @@ import { useNotificationStore } from '~~/stores/notifications';
 const notificationsStore = useNotificationStore();
 const { unread, allNotifications, popupsVisible } = storeToRefs(notificationsStore)
 
-// State
-const notificationsVisible = ref(false);
-
-// DOM Elements
-let container;
-let expandIcon;
-
-onMounted(() => {
-  container = document.querySelector('#container');
-  expandIcon = document.querySelector('#expand-icon');
-})
-
 // Methods
 function clickToHidePopups(e) {
   if (e.target.id !== 'mark-popup') {
     notificationsStore.hideAllPopups()
   }
 }
-
-watch(notificationsVisible, (newVisibility) => {
-  if (newVisibility === true) {
-    container.style.height = 'auto';
-    container.style.overflow = 'unset';
-    expandIcon.style.transform = 'rotate(180deg)'
-  }
-  else if (newVisibility === false) {
-    container.style.height = '96px';
-    container.style.overflow = 'clip';
-    expandIcon.style.transform = 'rotate(0deg)'
-  }
-})
 
 watch(popupsVisible, (newVisibility) => {
   if(newVisibility === 1) {
@@ -89,8 +64,6 @@ watch(popupsVisible, (newVisibility) => {
   border: solid 1px var(--light-grayish-blue-2);
   border-radius: 10px;
   margin-top: 2em;
-  height: 96px;
-  overflow: clip;
 }
 
 @media only screen and (max-width: 550px) {
@@ -106,7 +79,14 @@ header {
   cursor: pointer;
 }
 
-/* height = 96 */
+#markAllRead {
+  text-decoration: none;
+  color: var(--dark-grayish-blue);
+  font-family: var(--primary-font);
+  font-size: 1.125em;
+  margin-left: auto;
+  margin-top: 0.25em;
+}
 
 #notificationTitle {
   font-size: 1.5em;
