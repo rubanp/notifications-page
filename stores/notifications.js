@@ -75,12 +75,14 @@ export const useNotificationStore = defineStore('notifications', () => {
     }
   ])
 
-  // Return all notifications
+  // Properties
+  // ==========
+
   const allNotifications = computed(() => {
     return notifications;
   })
 
-  // Unread notifications
+  // Total number of unread notifications
   const unread = computed(() => {
     return notifications.value.map((notification) => {
       return notification.read;
@@ -91,6 +93,7 @@ export const useNotificationStore = defineStore('notifications', () => {
     }, 0)
   })
 
+  // Total number of visible additional info popups. Should not exceed 1.
   const popupsVisible = computed(() => {
     return notifications.value.map((notification) => {
       return notification.popupVisible;
@@ -101,7 +104,8 @@ export const useNotificationStore = defineStore('notifications', () => {
     }, 0)
   })
 
-  // When marking as read && helper for mark all as read
+  // Mark as Read and Unread
+  // =======================
   function markAsRead(uuid) {
     notifications.value = notifications.value.map((notification) => {
       if (notification.uuid === uuid) {
@@ -110,7 +114,6 @@ export const useNotificationStore = defineStore('notifications', () => {
     })
   }
 
-  // When marking as unread on the popup
   function markAsUnread(uuid) {
     notifications.value = notifications.value.map((notification) => {
       if (notification.uuid === uuid) {
@@ -119,7 +122,16 @@ export const useNotificationStore = defineStore('notifications', () => {
     })
   }
 
-  // Helpers
+  function markAllAsRead() {
+    notifications.value = notifications.value.map((notification) => {
+      notification.read = true;
+      return notification;
+    })
+  }
+
+  // Hide and Show Popups
+  // ====================
+
   function showPopup(uuid) {
     notifications.value = notifications.value.map((notification) => {
       if (notification.uuid === uuid) {
@@ -136,14 +148,6 @@ export const useNotificationStore = defineStore('notifications', () => {
     })
   }
 
-  // When clicking the mark all as read button
-  function markAllAsRead() {
-    notifications.forEach((notification, index) => {
-      markAsRead(index);
-    })
-  }
-
-  // When clicking on the body
   function hideAllPopups() {
     notifications.value = notifications.value.map((notification) => {
       notification.popupVisible = false;
@@ -151,15 +155,20 @@ export const useNotificationStore = defineStore('notifications', () => {
     })
   }
 
-  // When clicking on the show popup button
   function showOnePopup(uuid) {
     hideAllPopups();
     showPopup(uuid);
   }
 
-  // Add notification
+  // Add and Remove Notifications
+  // ============================
+
   function addNotification(notification) {
     notifications.push(notification);
+  }
+
+  function removeNotification(notification) {
+    // Code
   }
 
   return { allNotifications, unread, popupsVisible, markAsRead, markAsUnread, markAllAsRead, showPopup, hidePopup, hideAllPopups, showOnePopup, addNotification }
