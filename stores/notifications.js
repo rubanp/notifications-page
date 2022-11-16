@@ -1,4 +1,5 @@
 import anymatch from "anymatch";
+import { v4 as uuidv4 } from 'uuid';
 
 export const useNotificationStore = defineStore('notifications', () => {
 
@@ -164,13 +165,32 @@ export const useNotificationStore = defineStore('notifications', () => {
   // ============================
 
   function addNotification(notification) {
+    notification.uuid = uuidv4();
     notifications.push(notification);
   }
 
-  function removeNotification(notification) {
-    // Code
+  function removeNotification(uuid) {
+    const index = notifications.value.findIndex(notification => notification.uuid === uuid)
+    if (index > -1) {
+      notifications.value.splice(index, 1)
+    } else {
+      return new Error('Notification not found');
+    }
   }
 
-  return { allNotifications, unread, popupsVisible, markAsRead, markAsUnread, markAllAsRead, showPopup, hidePopup, hideAllPopups, showOnePopup, addNotification }
+  return {
+    allNotifications,
+    unread,
+    popupsVisible,
+    markAsRead,
+    markAsUnread,
+    markAllAsRead,
+    showPopup,
+    hidePopup,
+    hideAllPopups,
+    showOnePopup, 
+    addNotification,
+    removeNotification
+  }
 
 }) 

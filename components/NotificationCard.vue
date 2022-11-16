@@ -31,6 +31,11 @@
     }
   }
 
+  function removeNotification() {
+    notificationsStore.hidePopup(props.uuid);
+    notificationsStore.removeNotification(props.uuid);
+  }
+
 </script>
 
 <template>
@@ -59,7 +64,8 @@
       <MarkPopup class="popup-activate" @click="togglePopup" :class="{block: props.popupVisible}"/>
     </div>
 
-    <Popup class="popup" v-if="props.popupVisible" :read="props.read" @read-status-change="changeReadStatus"/>
+    <Popup class="popup" v-if="props.popupVisible" :read="props.read" 
+    @read-status-change="changeReadStatus" @remove="removeNotification"/>
   </div>
 </template>
 

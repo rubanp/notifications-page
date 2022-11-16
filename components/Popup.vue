@@ -6,7 +6,7 @@
         <img class="icon" src="../assets/icons/tick.svg" alt="">
         <p>Mark as {{ readStatus }}</p>
       </a>
-      <a class="action">
+      <a class="action" @click="$emit('remove')">
         <img class="icon" src="../assets/icons/remove.svg" alt="">
         <p>Remove</p>
       </a>
