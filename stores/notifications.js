@@ -89,12 +89,16 @@ export const useNotificationStore = defineStore('notifications', () => {
         return total;
       } return total + 1
     }, 0)
+  })
 
-    // return notifications.value.reduce((total, current) => {
-    //   if(current.read) {
-    //     return total;
-    //   } return total + 1;
-    // }, 0)
+  const popupsVisible = computed(() => {
+    return notifications.value.map((notification) => {
+      return notification.popupVisible;
+    }).reduce((total, current) => {
+      if (!current) {
+        return total;
+      } return total + 1;
+    }, 0)
   })
 
   // When marking as read && helper for mark all as read
@@ -116,11 +120,20 @@ export const useNotificationStore = defineStore('notifications', () => {
   }
 
   // Helpers
-  function showPopup(no) {
-    notifications[no].popupVisible = true;
+  function showPopup(uuid) {
+    notifications.value = notifications.value.map((notification) => {
+      if (notification.uuid === uuid) {
+        notification.popupVisible = true;
+      } return notification;
+    })
   }
-  function hidePopup(no) {
-    notifications[no].popupVisible = false;
+
+  function hidePopup(uuid) {
+    notifications.value = notifications.value.map((notification) => {
+      if (notification.uuid === uuid) {
+        notification.popupVisible = false;
+      } return notification;
+    })
   }
 
   // When clicking the mark all as read button
@@ -132,20 +145,16 @@ export const useNotificationStore = defineStore('notifications', () => {
 
   // When clicking on the body
   function hideAllPopups() {
-    notifications.forEach((notification, index) => {
-      hidePopup(index);
+    notifications.value = notifications.value.map((notification) => {
+      notification.popupVisible = false;
+      return notification;
     })
   }
 
   // When clicking on the show popup button
-  function showOnePopup(no) {
-    notifications.forEach((notification, index) => {
-      if(index === no) {
-        showPopup(no);
-      } else {
-        hidePopup(index);
-      }
-    })
+  function showOnePopup(uuid) {
+    hideAllPopups();
+    showPopup(uuid);
   }
 
   // Add notification
@@ -153,6 +162,6 @@ export const useNotificationStore = defineStore('notifications', () => {
     notifications.push(notification);
   }
 
-  return { allNotifications, unread, markAsRead, markAsUnread, markAllAsRead, hideAllPopups, showOnePopup, addNotification }
+  return { allNotifications, unread, popupsVisible, markAsRead, markAsUnread, markAllAsRead, showPopup, hidePopup, hideAllPopups, showOnePopup, addNotification }
 
 }) 

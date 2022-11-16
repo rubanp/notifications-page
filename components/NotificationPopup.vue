@@ -16,7 +16,7 @@
       :message="notification.message"
       :object="notification.object"
       :read="notification.read"
-      :popupVisbile="notification.popupVisible">
+      :popupVisible="notification.popupVisible">
     </NotificationCard>
   </div>
 </template>
@@ -28,7 +28,23 @@ import { useNotificationStore } from '~~/stores/notifications';
 
 const notificationsStore = useNotificationStore();
 
-const { unread, allNotifications } = storeToRefs(notificationsStore)
+const { unread, allNotifications, popupsVisible } = storeToRefs(notificationsStore)
+
+function clickToHidePopups(e) {
+  if (e.target.id !== 'mark-popup') {
+    notificationsStore.hideAllPopups()
+  }
+}
+
+watch(popupsVisible, (newVisibility) => {
+  if(newVisibility === 1) {
+    setTimeout(() => {
+      document.querySelector('body').addEventListener('click', clickToHidePopups)
+    }, 10)
+  } else if (newVisibility === 0) {
+    document.querySelector('body').removeEventListener('click', clickToHidePopups)
+  }
+})
 
 </script>
 

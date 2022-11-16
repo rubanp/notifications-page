@@ -6,8 +6,6 @@
 
   const props = defineProps(['person', 'timestamp', 'message', 'object', 'image', 'read', 'uuid', 'popupVisible']);
 
-  const popupHidden = ref(true)
-
   const imgAlt = computed(() => {
     return `Profile photo of ${props.person}`
   })
@@ -16,14 +14,20 @@
   const isMessage = ref(Object.keys(props.object).includes('message'));
 
   function togglePopup() {
-    popupHidden.value = !popupHidden.value
+    if (props.popupVisible) {
+      notificationsStore.hidePopup(props.uuid);
+    } else {
+      notificationsStore.showOnePopup(props.uuid);
+    }
   }
 
   function changeReadStatus(newStatus) {
     if (newStatus === 'unread') {
       notificationsStore.markAsUnread(props.uuid);
+      notificationsStore.hidePopup(props.uuid);
     } else {
       notificationsStore.markAsRead(props.uuid);
+      notificationsStore.hidePopup(props.uuid);
     }
   }
 
@@ -52,10 +56,10 @@
     </div>
 
     <div class="popup-container">
-      <MarkPopup class="popup-activate" @click="togglePopup" :class="{block: !popupHidden}"/>
+      <MarkPopup class="popup-activate" @click="togglePopup" :class="{block: props.popupVisible}"/>
     </div>
 
-    <Popup class="popup" v-if="!popupHidden" :read="props.read" @read-status-change="changeReadStatus"/>
+    <Popup class="popup" v-if="props.popupVisible" :read="props.read" @read-status-change="changeReadStatus"/>
   </div>
 </template>
 

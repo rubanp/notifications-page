@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="../assets/icons/dots.svg" alt="">
+    <img id="mark-popup" src="../assets/icons/dots.svg" alt="">
   </div>
 </template>
 
