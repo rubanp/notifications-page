@@ -181,7 +181,6 @@ export const useNotificationStore = defineStore('notifications', () => {
     hidePopup,
     hideAllPopups,
     showOnePopup, 
-    addNotification,
     removeNotification
   }
 
