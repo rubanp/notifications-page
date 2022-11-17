@@ -1,6 +1,3 @@
-import anymatch from "anymatch";
-import { v4 as uuidv4 } from 'uuid';
-
 export const useNotificationStore = defineStore('notifications', () => {
 
   const notifications = ref([
@@ -161,13 +158,8 @@ export const useNotificationStore = defineStore('notifications', () => {
     showPopup(uuid);
   }
 
-  // Add and Remove Notifications
+  // Remove Notifications
   // ============================
-
-  function addNotification(notification) {
-    notification.uuid = uuidv4();
-    notifications.push(notification);
-  }
 
   function removeNotification(uuid) {
     const index = notifications.value.findIndex(notification => notification.uuid === uuid)
