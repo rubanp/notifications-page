@@ -7,8 +7,8 @@
 For this project I used Frontend Mentors notification page design but I decided 
 to challenge myself by making the notifications dynamic and more interactive.
 
-The original design only showed a `Mark all as read`, but I wanted to create a 
-more comprehensive system.
+The original design only showed a `Mark all as read` button, but I wanted to 
+create a more comprehensive system.
 
 The additional features I included were:
 - Show an 'additional options' button on hovering over notifications
